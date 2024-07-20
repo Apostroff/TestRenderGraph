@@ -7,9 +7,11 @@ namespace Rendering.Runtime
 {
   public class OpaqueRenderPass
   {
+    
     static readonly ShaderTagId[] shaderTagIds = {
         new("SRPDefaultUnlit"),
-        new("CustomLit")
+        new("UniversalForward"),
+        new("UniversalForwardOnly"),
     };
 
     private CameraRenderAttachments _cameraRenderAttachments;
@@ -23,6 +25,7 @@ namespace Rendering.Runtime
           sortingCriteria = SortingCriteria.CommonOpaque,
           renderQueueRange = RenderQueueRange.opaque,
           rendererConfiguration = PerObjectData.None,
+          stateBlock = new RenderStateBlock(RenderStateMask.Nothing)
       };
     }
 

@@ -8,6 +8,12 @@ namespace Rendering.Runtime
   {
     private static readonly ProfilingSampler samplerOpaque = new("Opaque Geometry");
     private RenderGraph _renderGraph = new("Custom SRP Render Graph");
+
+    public CustomRenderPipeline()
+    {
+      Shader.globalRenderPipeline = "UniversalPipeline";
+    }
+
     protected override void Render(ScriptableRenderContext context, Camera[] cameras)
     {
       var renderGraphParameters = new RenderGraphParameters
@@ -16,6 +22,7 @@ namespace Rendering.Runtime
           currentFrameIndex = Time.renderedFrameCount,
           scriptableRenderContext =  context,
           rendererListCulling = false,
+          executionName = "UniversalPipeline"
       };
 
       for (var i = 0; i < cameras.Length; i++)
@@ -58,6 +65,7 @@ namespace Rendering.Runtime
     {
       _renderGraph.Cleanup();
       _renderGraph = null;
+      Shader.globalRenderPipeline = string.Empty;
     }
   }
 }
